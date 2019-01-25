@@ -55,7 +55,8 @@ def build_app(settings_path, loop=None):
 
     template_dir = os.path.join(os.path.dirname(__file__), 'templates')
     env = aiohttp_jinja2.setup(
-        application, loader=jinja2.FileSystemLoader(template_dir)
+        application, loader=jinja2.FileSystemLoader(template_dir),
+        autoescape=False
     )
     env.globals['asset'] = application.assets.get_path
 

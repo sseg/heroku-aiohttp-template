@@ -30,8 +30,8 @@ async def index(request):
 
 
 async def tick(request):
-    if 'text/event-stream' not in request.headers.getall('ACCEPT', []):
-        raise HTTPNotAcceptable(reason="'text/event-stream' not found in Accept headers.")
+#     if 'text/event-stream' not in request.headers.getall('ACCEPT', []):
+#         raise HTTPNotAcceptable(reason="'text/event-stream' not found in Accept headers.")
 
     resp = StreamResponse(
         status=200,
@@ -52,8 +52,8 @@ async def tick(request):
         while not resp.should_stop:
             ts = time.monotonic()
             payload = json.dumps({'data': ts})
-            resp.write(build_message(payload, id=ts, event='tick'))
-            await resp.drain()
+            await resp.write(build_message(payload, id=ts, event='tick'))
+            # await resp.drain()
             await asyncio.sleep(1)
 
     finally:
